@@ -1,0 +1,16 @@
+node_modules/
+dist/
+build/
+tmp/
+*.log
+.env
+.DS_Store
+*.swp
+*.swo
+*~
+.cdk.out/
+cdk.context.json
+coverage/
+.nyc_output/
+*.tsbuildinfo
+

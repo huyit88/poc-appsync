@@ -1,0 +1,336 @@
+{
+  "version": "48.0.0",
+  "files": {
+    "2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d": {
+      "displayName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Code",
+      "source": {
+        "path": "asset.2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-67ef3bb3": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d.zip",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200": {
+      "displayName": "SystemApiStack/Custom::VpcRestrictDefaultSGCustomResourceProvider Code",
+      "source": {
+        "path": "asset.7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-ad45c124": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200.zip",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "5b70cab790f0c2cec376741eb3f60ba3c830737666385a3b241db9a4afcfd7c1": {
+      "displayName": "AppSyncApi/Api/DynamoDBGetCustomerResolver/Code",
+      "source": {
+        "path": "asset.5b70cab790f0c2cec376741eb3f60ba3c830737666385a3b241db9a4afcfd7c1.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-31b270b4": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "5b70cab790f0c2cec376741eb3f60ba3c830737666385a3b241db9a4afcfd7c1.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "023b0b9ab0f5dab6ccebeae2e29249d5f29f3c9428f77c336c70f04e559b927c": {
+      "displayName": "AppSyncApi/Api/DynamoDBGetCustomerByEmailResolver/Code",
+      "source": {
+        "path": "asset.023b0b9ab0f5dab6ccebeae2e29249d5f29f3c9428f77c336c70f04e559b927c.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-b447a323": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "023b0b9ab0f5dab6ccebeae2e29249d5f29f3c9428f77c336c70f04e559b927c.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "a445a78593ddf5f46da5e75de24800440dde63f9f077c8eade4159dc97ce4dda": {
+      "displayName": "DynamoDBResolvers/DynamoDBGetPhoneLookupFunction/Code",
+      "source": {
+        "path": "asset.a445a78593ddf5f46da5e75de24800440dde63f9f077c8eade4159dc97ce4dda.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-be881e3b": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "a445a78593ddf5f46da5e75de24800440dde63f9f077c8eade4159dc97ce4dda.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "1c95d0736018cb234ee065bd2d3ed955678bf8fc234e2276bd750d0d0e0b5678": {
+      "displayName": "DynamoDBResolvers/DynamoDBGetCustomerProfileFunction/Code",
+      "source": {
+        "path": "asset.1c95d0736018cb234ee065bd2d3ed955678bf8fc234e2276bd750d0d0e0b5678.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-e13b9b3b": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "1c95d0736018cb234ee065bd2d3ed955678bf8fc234e2276bd750d0d0e0b5678.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "a32ce196c41018340990e66bc91addb6d18f27861636789c04ddd645956719e5": {
+      "displayName": "AppSyncApi/Api/DynamoDBGetCustomerByPhoneResolver/Code",
+      "source": {
+        "path": "asset.a32ce196c41018340990e66bc91addb6d18f27861636789c04ddd645956719e5.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-52882297": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "a32ce196c41018340990e66bc91addb6d18f27861636789c04ddd645956719e5.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "c5dc01535af40f82671956478e66daaee480987774c6fede30c33d39bd83b4f8": {
+      "displayName": "AppSyncApi/Api/DynamoDBListClaimsByCustomerResolver/Code",
+      "source": {
+        "path": "asset.c5dc01535af40f82671956478e66daaee480987774c6fede30c33d39bd83b4f8.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-67657997": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "c5dc01535af40f82671956478e66daaee480987774c6fede30c33d39bd83b4f8.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "5317b24180b03000da72f3906a3ce5063e96c1d22c6b8e3318c9dbda022d2874": {
+      "displayName": "DynamoDBResolvers/DynamoDBGetCustomerForClaimsFunction/Code",
+      "source": {
+        "path": "asset.5317b24180b03000da72f3906a3ce5063e96c1d22c6b8e3318c9dbda022d2874.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-41aa0525": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "5317b24180b03000da72f3906a3ce5063e96c1d22c6b8e3318c9dbda022d2874.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "7391b24980c2e875efa47d1c32f160c2253691bc2447f0d03ebab6d207b447b8": {
+      "displayName": "DynamoDBResolvers/DynamoDBGetClaimsForCustomerFunction/Code",
+      "source": {
+        "path": "asset.7391b24980c2e875efa47d1c32f160c2253691bc2447f0d03ebab6d207b447b8.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-0030f44e": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "7391b24980c2e875efa47d1c32f160c2253691bc2447f0d03ebab6d207b447b8.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "03d445d9728b892d8be725bc04e42d1e5402bb2c6d2a985bfa8e45b6fd20c342": {
+      "displayName": "AppSyncApi/Api/DynamoDBGetCustomerWithClaimsResolver/Code",
+      "source": {
+        "path": "asset.03d445d9728b892d8be725bc04e42d1e5402bb2c6d2a985bfa8e45b6fd20c342.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-4845f319": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "03d445d9728b892d8be725bc04e42d1e5402bb2c6d2a985bfa8e45b6fd20c342.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "96e83e12bd75a265babaa87d3dd686983bb8c67843a7584661b0e969bdfd75e8": {
+      "displayName": "DynamoDBResolvers/DynamoDBGetClaimProfileFunction/Code",
+      "source": {
+        "path": "asset.96e83e12bd75a265babaa87d3dd686983bb8c67843a7584661b0e969bdfd75e8.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-04274fa7": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "96e83e12bd75a265babaa87d3dd686983bb8c67843a7584661b0e969bdfd75e8.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "e6a9b1641a9982eb0d5f91045aa40fa67594c1fc4f1793fc471cd5213575f6c6": {
+      "displayName": "DynamoDBResolvers/DynamoDBGetCustomerForClaimFunction/Code",
+      "source": {
+        "path": "asset.e6a9b1641a9982eb0d5f91045aa40fa67594c1fc4f1793fc471cd5213575f6c6.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-97181f8c": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "e6a9b1641a9982eb0d5f91045aa40fa67594c1fc4f1793fc471cd5213575f6c6.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "cfd666f341432043d2445161bbb51950dcf84a99dc60ab3547f9fb7eb2f21622": {
+      "displayName": "AppSyncApi/Api/DynamoDBGetClaimWithCustomerResolver/Code",
+      "source": {
+        "path": "asset.cfd666f341432043d2445161bbb51950dcf84a99dc60ab3547f9fb7eb2f21622.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-c310e436": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "cfd666f341432043d2445161bbb51950dcf84a99dc60ab3547f9fb7eb2f21622.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "cc08ba4bcbc74edb32266441e41151f9072b0b8f739dc8fa4146af27517b8b3d": {
+      "displayName": "AppSyncApi/Api/AuroraGetCustomerResolver/Code",
+      "source": {
+        "path": "asset.cc08ba4bcbc74edb32266441e41151f9072b0b8f739dc8fa4146af27517b8b3d.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-77dd3414": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "cc08ba4bcbc74edb32266441e41151f9072b0b8f739dc8fa4146af27517b8b3d.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "d70bb7f2d3f72d6e0e413c98c365ac808d5af7b1ba5f80cb36b995b52d9daa4d": {
+      "displayName": "AppSyncApi/Api/AuroraGetCustomerByPhoneResolver/Code",
+      "source": {
+        "path": "asset.d70bb7f2d3f72d6e0e413c98c365ac808d5af7b1ba5f80cb36b995b52d9daa4d.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-ccbe7028": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "d70bb7f2d3f72d6e0e413c98c365ac808d5af7b1ba5f80cb36b995b52d9daa4d.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "c6727a6e084fee70ac27595555c662749e76e9db9ff499171929d56dc8b4e2e8": {
+      "displayName": "AppSyncApi/Api/AuroraGetCustomerByEmailResolver/Code",
+      "source": {
+        "path": "asset.c6727a6e084fee70ac27595555c662749e76e9db9ff499171929d56dc8b4e2e8.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-07888e0e": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "c6727a6e084fee70ac27595555c662749e76e9db9ff499171929d56dc8b4e2e8.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "a659bde848d8974a2b75e6b7d997370752b1e2ce49b500a5a84ea72150dbd299": {
+      "displayName": "AppSyncApi/Api/AuroraListClaimsByCustomerResolver/Code",
+      "source": {
+        "path": "asset.a659bde848d8974a2b75e6b7d997370752b1e2ce49b500a5a84ea72150dbd299.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-8c68b1a5": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "a659bde848d8974a2b75e6b7d997370752b1e2ce49b500a5a84ea72150dbd299.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "b596e96d9d1474f508e086284ad7ef6ee6eea3c50956eecb379e1201b4168384": {
+      "displayName": "AppSyncApi/Api/AuroraGetCustomerWithClaimsResolver/Code",
+      "source": {
+        "path": "asset.b596e96d9d1474f508e086284ad7ef6ee6eea3c50956eecb379e1201b4168384.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-ae410ce4": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "b596e96d9d1474f508e086284ad7ef6ee6eea3c50956eecb379e1201b4168384.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "3135a310d93bd613dcdaec2ffe550ebfb3e0bfc8806fc14f51d07edf5826b38e": {
+      "displayName": "AppSyncApi/Api/AuroraGetClaimWithCustomerResolver/Code",
+      "source": {
+        "path": "asset.3135a310d93bd613dcdaec2ffe550ebfb3e0bfc8806fc14f51d07edf5826b38e.js",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-3ecf6b9f": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "3135a310d93bd613dcdaec2ffe550ebfb3e0bfc8806fc14f51d07edf5826b38e.js",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "b71e23d1b608952266ab10ac864b0a1f38f427a86cdd7bf4554fe8a6ee80e8c7": {
+      "displayName": "LambdaResolvers/FindCustomerByPhoneLambda/Code",
+      "source": {
+        "path": "asset.b71e23d1b608952266ab10ac864b0a1f38f427a86cdd7bf4554fe8a6ee80e8c7",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-6ceeb3d3": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "b71e23d1b608952266ab10ac864b0a1f38f427a86cdd7bf4554fe8a6ee80e8c7.zip",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    },
+    "edf1237d0ad5d08e8f6f1d9d6ec8db6d8a8b9309ce711a37b615deb9eb02ca09": {
+      "displayName": "SystemApiStack Template",
+      "source": {
+        "path": "SystemApiStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "848360038404-ap-southeast-1-7b8a6ba0": {
+          "bucketName": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+          "objectKey": "edf1237d0ad5d08e8f6f1d9d6ec8db6d8a8b9309ce711a37b615deb9eb02ca09.json",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::848360038404:role/cdk-hnb659fds-file-publishing-role-848360038404-ap-southeast-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

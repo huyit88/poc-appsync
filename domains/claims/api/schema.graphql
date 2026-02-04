@@ -1,0 +1,33 @@
+# Claim Domain Schema
+
+type Claim {
+  claimId: ID!
+  customerId: ID!
+  policyId: ID
+  claimType: String!
+  status: String!
+  amount: Float
+  submittedAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Query {
+  # DynamoDB queries
+  listClaimsByCustomer(customerId: ID!, limit: Int, nextToken: String): ClaimConnection
+  getClaimWithCustomer(claimId: ID!): ClaimWithCustomer
+  
+  # Aurora queries (for benchmarking)
+  listClaimsByCustomerAurora(customerId: ID!, limit: Int, nextToken: String): ClaimConnection
+  getClaimWithCustomerAurora(claimId: ID!): ClaimWithCustomer
+}
+
+type ClaimConnection {
+  items: [Claim!]!
+  nextToken: String
+}
+
+type ClaimWithCustomer {
+  claim: Claim!
+  customer: Customer!
+}
+

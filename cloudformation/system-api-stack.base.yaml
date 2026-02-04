@@ -1,0 +1,273 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Read-only System API using AppSync and DynamoDB'
+# NOTE: This is a base template. Run generate-template.ts to generate the final template.
+
+Parameters:
+  Environment:
+    Type: String
+    Default: dev
+    Description: Environment name (dev, staging, prod)
+
+Resources:
+  # DynamoDB Table
+  SystemApiTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: SystemApiTable
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+        - AttributeName: GSI1PK
+          AttributeType: S
+        - AttributeName: GSI1SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: GSI1
+          KeySchema:
+            - AttributeName: GSI1PK
+              KeyType: HASH
+            - AttributeName: GSI1SK
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: false
+      DeletionProtectionEnabled: false
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+
+  # CloudWatch Logs Role for AppSync
+  AppSyncLogsRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: appsync.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AppSyncPushToCloudWatchLogs
+
+  # CloudWatch Log Group
+  AppSyncLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub '/aws/appsync/apis/${SystemApi.ApiId}'
+      RetentionInDays: 7
+    DependsOn: SystemApi
+
+  # AppSync GraphQL API
+  SystemApi:
+    Type: AWS::AppSync::GraphQLApi
+    Properties:
+      Name: SystemApi
+      AuthenticationType: API_KEY
+      XrayEnabled: true
+      LogConfig:
+        CloudWatchLogsRoleArn: !GetAtt AppSyncLogsRole.Arn
+        FieldLogLevel: ALL
+
+  # API Key
+  SystemApiKey:
+    Type: AWS::AppSync::ApiKey
+    Properties:
+      ApiId: !GetAtt SystemApi.ApiId
+      Expires: 1735689600  # 1 year from 2024-01-01 (adjust as needed)
+      Description: API Key for System API
+
+  # IAM Role for AppSync Data Source
+  AppSyncDataSourceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: appsync.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: DynamoDBAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:Query
+                  - dynamodb:Scan
+                Resource:
+                  - !GetAtt SystemApiTable.Arn
+                  - !Sub '${SystemApiTable.Arn}/index/*'
+
+  # AppSync GraphQL Schema
+  # Schema is injected from schema/schema.graphql by generate-template.ts
+  SystemApiSchema:
+    Type: AWS::AppSync::GraphQLSchema
+    Properties:
+      ApiId: !GetAtt SystemApi.ApiId
+      Definition: |
+{{SCHEMA}}
+
+  # DynamoDB Data Source
+  DynamoDBDataSource:
+    Type: AWS::AppSync::DataSource
+    Properties:
+      ApiId: !GetAtt SystemApi.ApiId
+      Name: DynamoDBDataSource
+      Type: AMAZON_DYNAMODB
+      DynamoDBConfig:
+        TableName: !Ref SystemApiTable
+        AwsRegion: !Ref AWS::Region
+      ServiceRoleArn: !GetAtt AppSyncDataSourceRole.Arn
+
+  # GetCustomer Resolver Function
+  # Code is injected from resolvers/getCustomer.js by generate-template.ts
+  GetCustomerFunction:
+    Type: AWS::AppSync::FunctionConfiguration
+    Properties:
+      ApiId: !GetAtt SystemApi.ApiId
+      Name: getCustomer
+      DataSourceName: !GetAtt DynamoDBDataSource.Name
+      Code: |
+{{GetCustomerFunction_CODE}}
+      Runtime:
+        Name: APPSYNC_JS
+        RuntimeVersion: 1.0.0
+
+  # GetCustomer Resolver
+  GetCustomerResolver:
+    Type: AWS::AppSync::Resolver
+    Properties:
+      ApiId: !GetAtt SystemApi.ApiId
+      TypeName: Query
+      FieldName: getCustomer
+      Kind: PIPELINE
+      PipelineConfig:
+        Functions:
+          - !GetAtt GetCustomerFunction.FunctionId
+      Code: |
+        export function request(ctx) {
+          return {};
+        }
+        export function response(ctx) {
+          return ctx.result;
+        }
+      Runtime:
+        Name: APPSYNC_JS
+        RuntimeVersion: 1.0.0
+
+  # ListCustomersBySegment Function
+  # Code is injected from resolvers/listCustomersBySegment.js by generate-template.ts
+  ListCustomersBySegmentFunction:
+    Type: AWS::AppSync::FunctionConfiguration
+    Properties:
+      ApiId: !GetAtt SystemApi.ApiId
+      Name: listCustomersBySegment
+      DataSourceName: !GetAtt DynamoDBDataSource.Name
+      Code: |
+{{ListCustomersBySegmentFunction_CODE}}
+      Runtime:
+        Name: APPSYNC_JS
+        RuntimeVersion: 1.0.0
+
+  # ListCustomersBySegment Resolver
+  ListCustomersBySegmentResolver:
+    Type: AWS::AppSync::Resolver
+    Properties:
+      ApiId: !GetAtt SystemApi.ApiId
+      TypeName: Query
+      FieldName: listCustomersBySegment
+      Kind: PIPELINE
+      PipelineConfig:
+        Functions:
+          - !GetAtt ListCustomersBySegmentFunction.FunctionId
+      Code: |
+        export function request(ctx) {
+          return {};
+        }
+        export function response(ctx) {
+          return ctx.result;
+        }
+      Runtime:
+        Name: APPSYNC_JS
+        RuntimeVersion: 1.0.0
+
+  # ListRecentCustomers Function
+  # Code is injected from resolvers/listRecentCustomers.js by generate-template.ts
+  ListRecentCustomersFunction:
+    Type: AWS::AppSync::FunctionConfiguration
+    Properties:
+      ApiId: !GetAtt SystemApi.ApiId
+      Name: listRecentCustomers
+      DataSourceName: !GetAtt DynamoDBDataSource.Name
+      Code: |
+{{ListRecentCustomersFunction_CODE}}
+      Runtime:
+        Name: APPSYNC_JS
+        RuntimeVersion: 1.0.0
+
+  # ListRecentCustomers Resolver
+  ListRecentCustomersResolver:
+    Type: AWS::AppSync::Resolver
+    Properties:
+      ApiId: !GetAtt SystemApi.ApiId
+      TypeName: Query
+      FieldName: listRecentCustomers
+      Kind: PIPELINE
+      PipelineConfig:
+        Functions:
+          - !GetAtt ListRecentCustomersFunction.FunctionId
+      Code: |
+        export function request(ctx) {
+          return {};
+        }
+        export function response(ctx) {
+          return ctx.result;
+        }
+      Runtime:
+        Name: APPSYNC_JS
+        RuntimeVersion: 1.0.0
+
+Outputs:
+  GraphQLEndpoint:
+    Description: AppSync GraphQL API Endpoint
+    Value: !GetAtt SystemApi.GraphQLUrl
+    Export:
+      Name: !Sub '${AWS::StackName}-GraphQLEndpoint'
+
+  ApiKey:
+    Description: AppSync API Key
+    Value: !GetAtt SystemApiKey.ApiKey
+    Export:
+      Name: !Sub '${AWS::StackName}-ApiKey'
+
+  ApiId:
+    Description: AppSync API ID
+    Value: !GetAtt SystemApi.ApiId
+    Export:
+      Name: !Sub '${AWS::StackName}-ApiId'
+
+  TableName:
+    Description: DynamoDB Table Name
+    Value: !Ref SystemApiTable
+    Export:
+      Name: !Sub '${AWS::StackName}-TableName'
+
+  Region:
+    Description: AWS Region
+    Value: !Ref AWS::Region
+    Export:
+      Name: !Sub '${AWS::StackName}-Region'
+

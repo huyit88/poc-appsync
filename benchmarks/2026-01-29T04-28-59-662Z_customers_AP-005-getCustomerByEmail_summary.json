@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-01-29T04:29:50.504Z",
+  "scenario": "customers/AP-005-getCustomerByEmail",
+  "config": {
+    "vus": 20,
+    "duration": "30s",
+    "rampUp": "10s",
+    "rampDown": "10s"
+  },
+  "metrics": {
+    "latency": {
+      "p50": 56,
+      "p90": 64,
+      "p95": 69,
+      "p99": 120,
+      "avg": 58,
+      "min": 49,
+      "max": 165
+    },
+    "throughput": {
+      "rps": 459.9,
+      "totalRequests": 13797
+    },
+    "errors": {
+      "httpErrorRate": 0,
+      "checkPassRate": 100,
+      "overallErrorRate": 0
+    }
+  }
+}

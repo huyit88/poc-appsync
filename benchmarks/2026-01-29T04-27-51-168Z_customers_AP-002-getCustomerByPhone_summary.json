@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-01-29T04:28:41.913Z",
+  "scenario": "customers/AP-002-getCustomerByPhone",
+  "config": {
+    "vus": 20,
+    "duration": "30s",
+    "rampUp": "10s",
+    "rampDown": "10s"
+  },
+  "metrics": {
+    "latency": {
+      "p50": 60,
+      "p90": 70,
+      "p95": 75,
+      "p99": 126,
+      "avg": 63,
+      "min": 54,
+      "max": 484
+    },
+    "throughput": {
+      "rps": 425.97,
+      "totalRequests": 12779
+    },
+    "errors": {
+      "httpErrorRate": 0,
+      "checkPassRate": 100,
+      "overallErrorRate": 0
+    }
+  }
+}

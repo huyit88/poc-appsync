@@ -1,0 +1,24 @@
+{
+  "name": "@poc-appsync/scripts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "migrate": "tsx migrate.ts",
+    "seed": "tsx seed.ts",
+    "query": "tsx query.ts",
+    "integration-test": "tsx integration-test.ts"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.400.0",
+    "@aws-sdk/client-rds-data": "^3.975.0",
+    "@aws-sdk/lib-dynamodb": "^3.400.0",
+    "dotenv": "^16.3.0",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.2.0"
+  }
+}

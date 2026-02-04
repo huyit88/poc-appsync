@@ -1,0 +1,14 @@
+{
+  "name": "@poc-appsync/src",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.2.0"
+  }
+}
+

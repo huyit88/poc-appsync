@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-01-29T04:31:36.596Z",
+  "scenario": "customers-aurora/AP-001-getCustomer",
+  "config": {
+    "vus": 20,
+    "duration": "30s",
+    "rampUp": "10s",
+    "rampDown": "10s"
+  },
+  "metrics": {
+    "latency": {
+      "p50": 102,
+      "p90": 150,
+      "p95": 172,
+      "p99": 236,
+      "avg": 103,
+      "min": 61,
+      "max": 595
+    },
+    "throughput": {
+      "rps": 258.83,
+      "totalRequests": 7765
+    },
+    "errors": {
+      "httpErrorRate": 0,
+      "checkPassRate": 100,
+      "overallErrorRate": 0
+    }
+  }
+}

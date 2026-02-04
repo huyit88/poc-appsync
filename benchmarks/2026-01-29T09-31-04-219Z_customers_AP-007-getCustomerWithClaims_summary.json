@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-01-29T09:31:54.977Z",
+  "scenario": "customers/AP-007-getCustomerWithClaims",
+  "config": {
+    "vus": 20,
+    "duration": "30s",
+    "rampUp": "10s",
+    "rampDown": "10s"
+  },
+  "metrics": {
+    "latency": {
+      "p50": 65,
+      "p90": 77,
+      "p95": 81,
+      "p99": 140,
+      "avg": 69,
+      "min": 58,
+      "max": 341
+    },
+    "throughput": {
+      "rps": 388.83,
+      "totalRequests": 11665
+    },
+    "errors": {
+      "httpErrorRate": 0,
+      "checkPassRate": 100,
+      "overallErrorRate": 0
+    }
+  }
+}

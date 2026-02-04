@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-01-29T07:55:12.044Z",
+  "scenario": "claims-aurora/AP-006-listClaimsByCustomer",
+  "config": {
+    "vus": 20,
+    "duration": "30s",
+    "rampUp": "10s",
+    "rampDown": "10s"
+  },
+  "metrics": {
+    "latency": {
+      "p50": 115,
+      "p90": 178,
+      "p95": 203,
+      "p99": 269,
+      "avg": 123,
+      "min": 68,
+      "max": 559
+    },
+    "throughput": {
+      "rps": 218.27,
+      "totalRequests": 6548
+    },
+    "errors": {
+      "httpErrorRate": 0,
+      "checkPassRate": 100,
+      "overallErrorRate": 0
+    }
+  }
+}

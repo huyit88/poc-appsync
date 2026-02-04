@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-02-02T07:36:08.021Z",
+  "scenario": "customers/AP-003-getCustomerByPhoneLambda",
+  "config": {
+    "vus": 20,
+    "duration": "30s",
+    "rampUp": "10s",
+    "rampDown": "10s"
+  },
+  "metrics": {
+    "latency": {
+      "p50": 118,
+      "p90": 190,
+      "p95": 233,
+      "p99": 387,
+      "avg": 137,
+      "min": 65,
+      "max": 1801
+    },
+    "throughput": {
+      "rps": 195.3,
+      "totalRequests": 5859
+    },
+    "errors": {
+      "httpErrorRate": 0,
+      "checkPassRate": 100,
+      "overallErrorRate": 0
+    }
+  }
+}

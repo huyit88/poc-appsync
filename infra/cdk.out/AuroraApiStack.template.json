@@ -1,0 +1,1253 @@
+{
+ "Description": "Read-only System API using AppSync and Aurora PostgreSQL (for benchmarking)",
+ "Resources": {
+  "AuroraVpc7929A8B8": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AuroraApiStack/AuroraVpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraVpc/Resource"
+   }
+  },
+  "AuroraVpcaurorasubnetSubnet1Subnet4CD3ECE4": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "ap-southeast-1a",
+    "CidrBlock": "10.0.0.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "aurora-subnet"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "Name",
+      "Value": "AuroraApiStack/AuroraVpc/aurora-subnetSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuroraVpc7929A8B8"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraVpc/aurora-subnetSubnet1/Subnet"
+   }
+  },
+  "AuroraVpcaurorasubnetSubnet1RouteTable5A6158E0": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AuroraApiStack/AuroraVpc/aurora-subnetSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuroraVpc7929A8B8"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraVpc/aurora-subnetSubnet1/RouteTable"
+   }
+  },
+  "AuroraVpcaurorasubnetSubnet1RouteTableAssociationC9F2A4D5": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "AuroraVpcaurorasubnetSubnet1RouteTable5A6158E0"
+    },
+    "SubnetId": {
+     "Ref": "AuroraVpcaurorasubnetSubnet1Subnet4CD3ECE4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraVpc/aurora-subnetSubnet1/RouteTableAssociation"
+   }
+  },
+  "AuroraVpcaurorasubnetSubnet2SubnetB1279A78": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "ap-southeast-1b",
+    "CidrBlock": "10.0.1.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "aurora-subnet"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "Name",
+      "Value": "AuroraApiStack/AuroraVpc/aurora-subnetSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuroraVpc7929A8B8"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraVpc/aurora-subnetSubnet2/Subnet"
+   }
+  },
+  "AuroraVpcaurorasubnetSubnet2RouteTable256CCDD9": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AuroraApiStack/AuroraVpc/aurora-subnetSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuroraVpc7929A8B8"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraVpc/aurora-subnetSubnet2/RouteTable"
+   }
+  },
+  "AuroraVpcaurorasubnetSubnet2RouteTableAssociationCCA135ED": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "AuroraVpcaurorasubnetSubnet2RouteTable256CCDD9"
+    },
+    "SubnetId": {
+     "Ref": "AuroraVpcaurorasubnetSubnet2SubnetB1279A78"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraVpc/aurora-subnetSubnet2/RouteTableAssociation"
+   }
+  },
+  "AuroraVpcRestrictDefaultSecurityGroupCustomResource791E4767": {
+   "Type": "Custom::VpcRestrictDefaultSG",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E",
+      "Arn"
+     ]
+    },
+    "DefaultSecurityGroupId": {
+     "Fn::GetAtt": [
+      "AuroraVpc7929A8B8",
+      "DefaultSecurityGroup"
+     ]
+    },
+    "Account": "848360038404"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraVpc/RestrictDefaultSecurityGroupCustomResource/Default"
+   }
+  },
+  "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ],
+    "Policies": [
+     {
+      "PolicyName": "Inline",
+      "PolicyDocument": {
+       "Version": "2012-10-17",
+       "Statement": [
+        {
+         "Effect": "Allow",
+         "Action": [
+          "ec2:AuthorizeSecurityGroupIngress",
+          "ec2:AuthorizeSecurityGroupEgress",
+          "ec2:RevokeSecurityGroupIngress",
+          "ec2:RevokeSecurityGroupEgress"
+         ],
+         "Resource": [
+          {
+           "Fn::Join": [
+            "",
+            [
+             "arn:aws:ec2:ap-southeast-1:848360038404:security-group/",
+             {
+              "Fn::GetAtt": [
+               "AuroraVpc7929A8B8",
+               "DefaultSecurityGroup"
+              ]
+             }
+            ]
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/Custom::VpcRestrictDefaultSGCustomResourceProvider/Role"
+   }
+  },
+  "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+     "S3Key": "7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "__entrypoint__.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Description": "Lambda function for removing all inbound/outbound rules from the VPC default security group"
+   },
+   "DependsOn": [
+    "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/Custom::VpcRestrictDefaultSGCustomResourceProvider/Handler",
+    "aws:asset:path": "asset.7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200",
+    "aws:asset:property": "Code"
+   }
+  },
+  "AuroraSecurityGroup75F699F6": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for Aurora cluster",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "255.255.255.255/32",
+      "Description": "Disallow all traffic",
+      "FromPort": 252,
+      "IpProtocol": "icmp",
+      "ToPort": 86
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuroraVpc7929A8B8"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraSecurityGroup/Resource"
+   }
+  },
+  "AuroraSecurityGroupfromAuroraApiStackRdsProxySecurityGroup54F06F435432ABE64403": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "Allow RDS Proxy to connect to Aurora",
+    "FromPort": 5432,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "AuroraSecurityGroup75F699F6",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "RdsProxySecurityGroup5CF4ABA0",
+      "GroupId"
+     ]
+    },
+    "ToPort": 5432
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraSecurityGroup/from AuroraApiStackRdsProxySecurityGroup54F06F43:5432"
+   }
+  },
+  "AuroraSecurityGroupfromAuroraApiStackRdsProxySecurityGroup54F06F43IndirectPort96B7C1BF": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "Allow connections to the database Cluster from the Proxy",
+    "FromPort": {
+     "Fn::GetAtt": [
+      "AuroraCluster23D869C0",
+      "Endpoint.Port"
+     ]
+    },
+    "GroupId": {
+     "Fn::GetAtt": [
+      "AuroraSecurityGroup75F699F6",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "RdsProxySecurityGroup5CF4ABA0",
+      "GroupId"
+     ]
+    },
+    "ToPort": {
+     "Fn::GetAtt": [
+      "AuroraCluster23D869C0",
+      "Endpoint.Port"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraSecurityGroup/from AuroraApiStackRdsProxySecurityGroup54F06F43:{IndirectPort}"
+   }
+  },
+  "RdsProxySecurityGroup5CF4ABA0": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for RDS Proxy",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "AuroraVpc7929A8B8"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/RdsProxySecurityGroup/Resource"
+   }
+  },
+  "AuroraCredentials20EDD625": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": "Credentials for Aurora PostgreSQL database",
+    "GenerateSecretString": {
+     "ExcludeCharacters": "\"@/\\",
+     "GenerateStringKey": "password",
+     "SecretStringTemplate": "{\"username\":\"postgres\"}"
+    },
+    "Name": "aurora-db-credentials"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraCredentials/Resource"
+   }
+  },
+  "AuroraCredentialsAttachmentFE214782": {
+   "Type": "AWS::SecretsManager::SecretTargetAttachment",
+   "Properties": {
+    "SecretId": {
+     "Ref": "AuroraCredentials20EDD625"
+    },
+    "TargetId": {
+     "Ref": "AuroraCluster23D869C0"
+    },
+    "TargetType": "AWS::RDS::DBCluster"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraCredentials/Attachment/Resource"
+   }
+  },
+  "AuroraClusterSubnetsF3E9E6AD": {
+   "Type": "AWS::RDS::DBSubnetGroup",
+   "Properties": {
+    "DBSubnetGroupDescription": "Subnets for AuroraCluster database",
+    "SubnetIds": [
+     {
+      "Ref": "AuroraVpcaurorasubnetSubnet1Subnet4CD3ECE4"
+     },
+     {
+      "Ref": "AuroraVpcaurorasubnetSubnet2SubnetB1279A78"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraCluster/Subnets/Default"
+   }
+  },
+  "AuroraCluster23D869C0": {
+   "Type": "AWS::RDS::DBCluster",
+   "Properties": {
+    "CopyTagsToSnapshot": true,
+    "DBClusterParameterGroupName": "default.aurora-postgresql17",
+    "DBSubnetGroupName": {
+     "Ref": "AuroraClusterSubnetsF3E9E6AD"
+    },
+    "DatabaseName": "systemapi",
+    "DeletionProtection": false,
+    "EnableCloudwatchLogsExports": [
+     "postgresql"
+    ],
+    "EnableHttpEndpoint": true,
+    "Engine": "aurora-postgresql",
+    "EngineVersion": "17.6",
+    "MasterUserPassword": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "AuroraCredentials20EDD625"
+       },
+       ":SecretString:password::}}"
+      ]
+     ]
+    },
+    "MasterUsername": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "AuroraCredentials20EDD625"
+       },
+       ":SecretString:username::}}"
+      ]
+     ]
+    },
+    "Port": 5432,
+    "ServerlessV2ScalingConfiguration": {
+     "MaxCapacity": 4,
+     "MinCapacity": 0.5
+    },
+    "VpcSecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "AuroraSecurityGroup75F699F6",
+       "GroupId"
+      ]
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraCluster/Resource"
+   }
+  },
+  "AuroraClusterwriter499C523E": {
+   "Type": "AWS::RDS::DBInstance",
+   "Properties": {
+    "DBClusterIdentifier": {
+     "Ref": "AuroraCluster23D869C0"
+    },
+    "DBInstanceClass": "db.serverless",
+    "EnablePerformanceInsights": false,
+    "Engine": "aurora-postgresql",
+    "PromotionTier": 0,
+    "PubliclyAccessible": false
+   },
+   "DependsOn": [
+    "AuroraVpcaurorasubnetSubnet1RouteTableAssociationC9F2A4D5",
+    "AuroraVpcaurorasubnetSubnet2RouteTableAssociationCCA135ED"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraCluster/writer/Resource"
+   }
+  },
+  "AuroraClusterAuroraProxyIAMRoleE76EAF06": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "rds.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraCluster/AuroraProxy/IAMRole/Resource"
+   }
+  },
+  "AuroraClusterAuroraProxyIAMRoleDefaultPolicy698D689A": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:GetSecretValue"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "AuroraCredentials20EDD625"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "AuroraClusterAuroraProxyIAMRoleDefaultPolicy698D689A",
+    "Roles": [
+     {
+      "Ref": "AuroraClusterAuroraProxyIAMRoleE76EAF06"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraCluster/AuroraProxy/IAMRole/DefaultPolicy/Resource"
+   }
+  },
+  "AuroraClusterAuroraProxyA165DA69": {
+   "Type": "AWS::RDS::DBProxy",
+   "Properties": {
+    "Auth": [
+     {
+      "AuthScheme": "SECRETS",
+      "IAMAuth": "DISABLED",
+      "SecretArn": {
+       "Ref": "AuroraCredentials20EDD625"
+      }
+     }
+    ],
+    "DBProxyName": "aurora-systemapi-proxy",
+    "EngineFamily": "POSTGRESQL",
+    "RequireTLS": true,
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "AuroraClusterAuroraProxyIAMRoleE76EAF06",
+      "Arn"
+     ]
+    },
+    "VpcSecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "RdsProxySecurityGroup5CF4ABA0",
+       "GroupId"
+      ]
+     }
+    ],
+    "VpcSubnetIds": [
+     {
+      "Ref": "AuroraVpcaurorasubnetSubnet1Subnet4CD3ECE4"
+     },
+     {
+      "Ref": "AuroraVpcaurorasubnetSubnet2SubnetB1279A78"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraCluster/AuroraProxy/Resource"
+   }
+  },
+  "AuroraClusterAuroraProxyProxyTargetGroup11D340B8": {
+   "Type": "AWS::RDS::DBProxyTargetGroup",
+   "Properties": {
+    "ConnectionPoolConfigurationInfo": {
+     "ConnectionBorrowTimeout": 120,
+     "MaxConnectionsPercent": 100,
+     "MaxIdleConnectionsPercent": 50
+    },
+    "DBClusterIdentifiers": [
+     {
+      "Ref": "AuroraCluster23D869C0"
+     }
+    ],
+    "DBProxyName": {
+     "Ref": "AuroraClusterAuroraProxyA165DA69"
+    },
+    "TargetGroupName": "default"
+   },
+   "DependsOn": [
+    "AuroraCluster23D869C0",
+    "AuroraClusterwriter499C523E"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraCluster/AuroraProxy/ProxyTargetGroup"
+   }
+  },
+  "AuroraApiApiLogsRole40D20FEF": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "appsync.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSAppSyncPushToCloudWatchLogs"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraApi/ApiLogsRole/Resource"
+   }
+  },
+  "AuroraApiF68E4168": {
+   "Type": "AWS::AppSync::GraphQLApi",
+   "Properties": {
+    "AuthenticationType": "API_KEY",
+    "LogConfig": {
+     "CloudWatchLogsRoleArn": {
+      "Fn::GetAtt": [
+       "AuroraApiApiLogsRole40D20FEF",
+       "Arn"
+      ]
+     },
+     "FieldLogLevel": "ALL"
+    },
+    "Name": "AuroraApi",
+    "XrayEnabled": true
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraApi/Resource"
+   }
+  },
+  "AuroraApiSchema185E103B": {
+   "Type": "AWS::AppSync::GraphQLSchema",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "AuroraApiF68E4168",
+      "ApiId"
+     ]
+    },
+    "Definition": "# Composed GraphQL Schema\n# This file is auto-generated by scripts/compose-schema.ts\n# Do not edit this file directly. Edit domain schemas instead.\n\n# === CUSTOMERS DOMAIN ===\n# Customer Domain Schema\n\ntype Customer {\n  customerId: ID!\n  fullName: String!\n  email: String\n  phone: String\n  updatedAt: AWSDateTime!\n}\n\ntype Query {\n  # DynamoDB queries\n  getCustomer(customerId: ID!): Customer\n  getCustomerByPhone(phone: String!): Customer\n  getCustomerByPhoneLambda(phone: String!): Customer\n  getCustomerByPhoneLambdaWithProvisionedConcurrency(phone: String!): Customer\n  getCustomerByEmail(email: String!): Customer\n  \n  # Aurora queries (for benchmarking)\n  getCustomerAurora(customerId: ID!): Customer\n  getCustomerByPhoneAurora(phone: String!): Customer\n  getCustomerByEmailAurora(email: String!): Customer\n}\n\n\n\nschema {\n  query: Query\n}"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraApi/Schema"
+   }
+  },
+  "AuroraApiDefaultApiKeyA6124CC7": {
+   "Type": "AWS::AppSync::ApiKey",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "AuroraApiF68E4168",
+      "ApiId"
+     ]
+    },
+    "Expires": 1801131271
+   },
+   "DependsOn": [
+    "AuroraApiSchema185E103B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraApi/DefaultApiKey"
+   }
+  },
+  "AuroraApiLogRetention0386C5BC": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/appsync/apis/",
+       {
+        "Fn::GetAtt": [
+         "AuroraApiF68E4168",
+         "ApiId"
+        ]
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraApi/LogRetention/Resource"
+   }
+  },
+  "AuroraApiAuroraApiDataSourceServiceRole6C124BE2": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "appsync.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraApi/AuroraApiDataSource/ServiceRole/Resource"
+   }
+  },
+  "AuroraApiAuroraApiDataSourceServiceRoleDefaultPolicy6DE0E534": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:GetSecretValue"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Ref": "AuroraCredentials20EDD625"
+        },
+        {
+         "Ref": "AuroraCredentialsAttachmentFE214782"
+        }
+       ]
+      },
+      {
+       "Action": [
+        "rds-data:BatchExecuteStatement",
+        "rds-data:BeginTransaction",
+        "rds-data:CommitTransaction",
+        "rds-data:ExecuteStatement",
+        "rds-data:RollbackTransaction"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:rds:ap-southeast-1:848360038404:cluster:",
+          {
+           "Ref": "AuroraCluster23D869C0"
+          }
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "rds-data:DeleteItems",
+        "rds-data:ExecuteSql",
+        "rds-data:GetItems",
+        "rds-data:InsertItems",
+        "rds-data:UpdateItems"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:rds:ap-southeast-1:848360038404:cluster:",
+           {
+            "Ref": "AuroraCluster23D869C0"
+           },
+           ":*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:aws:rds:ap-southeast-1:848360038404:cluster:",
+           {
+            "Ref": "AuroraCluster23D869C0"
+           }
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "rds-db:connect",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:aws:rds-db:ap-southeast-1:848360038404:dbuser:",
+          {
+           "Fn::Select": [
+            6,
+            {
+             "Fn::Split": [
+              ":",
+              {
+               "Fn::GetAtt": [
+                "AuroraClusterAuroraProxyA165DA69",
+                "DBProxyArn"
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          "/postgres"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "AuroraApiAuroraApiDataSourceServiceRoleDefaultPolicy6DE0E534",
+    "Roles": [
+     {
+      "Ref": "AuroraApiAuroraApiDataSourceServiceRole6C124BE2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraApi/AuroraApiDataSource/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "AuroraApiAuroraApiDataSourceC6B584A5": {
+   "Type": "AWS::AppSync::DataSource",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "AuroraApiF68E4168",
+      "ApiId"
+     ]
+    },
+    "Name": "AuroraApiDataSource",
+    "RelationalDatabaseConfig": {
+     "RdsHttpEndpointConfig": {
+      "AwsRegion": "ap-southeast-1",
+      "AwsSecretStoreArn": {
+       "Ref": "AuroraCredentials20EDD625"
+      },
+      "DatabaseName": "systemapi",
+      "DbClusterIdentifier": {
+       "Fn::Join": [
+        "",
+        [
+         "arn:aws:rds:ap-southeast-1:848360038404:cluster:",
+         {
+          "Ref": "AuroraCluster23D869C0"
+         }
+        ]
+       ]
+      }
+     },
+     "RelationalDatabaseSourceType": "RDS_HTTP_ENDPOINT"
+    },
+    "ServiceRoleArn": {
+     "Fn::GetAtt": [
+      "AuroraApiAuroraApiDataSourceServiceRole6C124BE2",
+      "Arn"
+     ]
+    },
+    "Type": "RELATIONAL_DATABASE"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraApi/AuroraApiDataSource/Resource"
+   }
+  },
+  "AuroraApiAuroraApiGetCustomerResolver65C1BE73": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "AuroraApiF68E4168",
+      "ApiId"
+     ]
+    },
+    "CodeS3Location": "s3://cdk-hnb659fds-assets-848360038404-ap-southeast-1/cc08ba4bcbc74edb32266441e41151f9072b0b8f739dc8fa4146af27517b8b3d.js",
+    "DataSourceName": "AuroraApiDataSource",
+    "FieldName": "getCustomerAurora",
+    "Kind": "UNIT",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    },
+    "TypeName": "Query"
+   },
+   "DependsOn": [
+    "AuroraApiAuroraApiDataSourceC6B584A5",
+    "AuroraApiSchema185E103B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraApi/AuroraApiGetCustomerResolver/Resource"
+   }
+  },
+  "AuroraApiAuroraApiGetCustomerByPhoneResolverBA2EBE47": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "AuroraApiF68E4168",
+      "ApiId"
+     ]
+    },
+    "CodeS3Location": "s3://cdk-hnb659fds-assets-848360038404-ap-southeast-1/d70bb7f2d3f72d6e0e413c98c365ac808d5af7b1ba5f80cb36b995b52d9daa4d.js",
+    "DataSourceName": "AuroraApiDataSource",
+    "FieldName": "getCustomerByPhoneAurora",
+    "Kind": "UNIT",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    },
+    "TypeName": "Query"
+   },
+   "DependsOn": [
+    "AuroraApiAuroraApiDataSourceC6B584A5",
+    "AuroraApiSchema185E103B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraApi/AuroraApiGetCustomerByPhoneResolver/Resource"
+   }
+  },
+  "AuroraApiAuroraApiGetCustomerByEmailResolver47631D1A": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "AuroraApiF68E4168",
+      "ApiId"
+     ]
+    },
+    "CodeS3Location": "s3://cdk-hnb659fds-assets-848360038404-ap-southeast-1/c6727a6e084fee70ac27595555c662749e76e9db9ff499171929d56dc8b4e2e8.js",
+    "DataSourceName": "AuroraApiDataSource",
+    "FieldName": "getCustomerByEmailAurora",
+    "Kind": "UNIT",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    },
+    "TypeName": "Query"
+   },
+   "DependsOn": [
+    "AuroraApiAuroraApiDataSourceC6B584A5",
+    "AuroraApiSchema185E103B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraApi/AuroraApiGetCustomerByEmailResolver/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:DeleteRetentionPolicy",
+        "logs:PutRetentionPolicy"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+    "Roles": [
+     {
+      "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Handler": "index.handler",
+    "Runtime": "nodejs22.x",
+    "Timeout": 900,
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-848360038404-ap-southeast-1",
+     "S3Key": "2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+      "Arn"
+     ]
+    }
+   },
+   "DependsOn": [
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource",
+    "aws:asset:path": "asset.2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "AuroraApiLogGroup47329664": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/appsync/apis/",
+       {
+        "Fn::GetAtt": [
+         "AuroraApiF68E4168",
+         "ApiId"
+        ]
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraApiLogGroup/Resource"
+   }
+  },
+  "AuroraApiDataSourceRole25902AB8": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "appsync.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Policies": [
+     {
+      "PolicyDocument": {
+       "Statement": [
+        {
+         "Action": [
+          "rds-data:BatchExecuteStatement",
+          "rds-data:BeginTransaction",
+          "rds-data:CommitTransaction",
+          "rds-data:ExecuteStatement",
+          "rds-data:RollbackTransaction"
+         ],
+         "Effect": "Allow",
+         "Resource": {
+          "Fn::Join": [
+           "",
+           [
+            "arn:aws:rds:ap-southeast-1:848360038404:cluster:",
+            {
+             "Ref": "AuroraCluster23D869C0"
+            }
+           ]
+          ]
+         }
+        },
+        {
+         "Action": "secretsmanager:GetSecretValue",
+         "Effect": "Allow",
+         "Resource": {
+          "Ref": "AuroraCredentials20EDD625"
+         }
+        }
+       ],
+       "Version": "2012-10-17"
+      },
+      "PolicyName": "RdsAccess"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/AuroraApiDataSourceRole/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31S204CMRD9Ft9LRYgPPgImhkgi7hJeydAdl8Juu3ZalGz23+1FXLzEpznnzHSuHfHR+JbfXMEbDURxGFRyy9vcgjgwL21aFCPerhvBZi9qvZyxpZFHsJi7rUIbxB5l2llcwbbCXu+1CZEWEqzUiuUonJH29GC0a2Lwv8JclQaJOkYoDFqqQUGJxvcZ+Wd8QMmswJRoJ9ZPsatRXQT89HTMFMTbe7CwBcJZ5ciiYan3r2bup7+Ec2Qkc0UWlEB2zrM0+v2UfD9h6iBm6piEmreZTguLdqkrKWJ8Qh2DpqGTErx9MNDsXqtJI4M7sufFd5aLHdYQBK8/4ollBYWecu2MiEUuWIakq2Oa4Yw7VunSL2ShywytX1C4lidfk5+xv8V4A0T+GnwSjOd86sQB7dQvoIvZU1G/KF33NBX7w+XXc5QFmvCexZz+G5ZSleHNk7ON8+dSukC+p+vjaMjv+PBqT1IOjPON1sizZD8A508BoNMCAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "AuroraApiStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "GraphQLEndpoint": {
+   "Description": "AppSync GraphQL API Endpoint (Aurora)",
+   "Value": {
+    "Fn::GetAtt": [
+     "AuroraApiF68E4168",
+     "GraphQLUrl"
+    ]
+   }
+  },
+  "ApiKey": {
+   "Description": "AppSync API Key (Aurora)",
+   "Value": {
+    "Fn::GetAtt": [
+     "AuroraApiDefaultApiKeyA6124CC7",
+     "ApiKey"
+    ]
+   }
+  },
+  "AuroraClusterEndpoint": {
+   "Description": "Aurora Cluster Endpoint",
+   "Value": {
+    "Fn::GetAtt": [
+     "AuroraCluster23D869C0",
+     "Endpoint.Address"
+    ]
+   }
+  },
+  "RdsProxyEndpoint": {
+   "Description": "RDS Proxy Endpoint",
+   "Value": {
+    "Fn::GetAtt": [
+     "AuroraClusterAuroraProxyA165DA69",
+     "Endpoint"
+    ]
+   }
+  },
+  "DatabaseSecretArn": {
+   "Description": "Secrets Manager ARN for database credentials",
+   "Value": {
+    "Ref": "AuroraCredentials20EDD625"
+   }
+  },
+  "DatabaseName": {
+   "Description": "Database name",
+   "Value": "systemapi"
+  },
+  "AuroraClusterArn": {
+   "Description": "Aurora Cluster ARN (for RDS Data API)",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "arn:aws:rds:ap-southeast-1:848360038404:cluster:",
+      {
+       "Ref": "AuroraCluster23D869C0"
+      }
+     ]
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-01-29T04:33:29.816Z",
+  "scenario": "customers-aurora/AP-005-getCustomerByEmail",
+  "config": {
+    "vus": 20,
+    "duration": "30s",
+    "rampUp": "10s",
+    "rampDown": "10s"
+  },
+  "metrics": {
+    "latency": {
+      "p50": 83,
+      "p90": 121,
+      "p95": 136,
+      "p99": 177,
+      "avg": 94,
+      "min": 63,
+      "max": 383
+    },
+    "throughput": {
+      "rps": 285.47,
+      "totalRequests": 8564
+    },
+    "errors": {
+      "httpErrorRate": 0,
+      "checkPassRate": 100,
+      "overallErrorRate": 0
+    }
+  }
+}

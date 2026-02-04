@@ -1,0 +1,33 @@
+# Customer Domain Schema
+
+type Customer {
+  customerId: ID!
+  fullName: String!
+  email: String
+  phone: String
+  updatedAt: AWSDateTime!
+}
+
+# Import Claim types (will be merged by compose-schema.ts)
+# Claim and ClaimConnection are defined in claims domain
+
+type CustomerWithClaims {
+  customer: Customer!
+  claims: ClaimConnection!
+}
+
+type Query {
+  # DynamoDB queries
+  getCustomer(customerId: ID!): Customer
+  getCustomerByPhone(phone: String!): Customer
+  getCustomerByPhoneLambda(phone: String!): Customer
+  getCustomerByEmail(email: String!): Customer
+  getCustomerWithClaims(customerId: ID!, limit: Int, nextToken: String): CustomerWithClaims
+  
+  # Aurora queries (for benchmarking)
+  getCustomerAurora(customerId: ID!): Customer
+  getCustomerByPhoneAurora(phone: String!): Customer
+  getCustomerByEmailAurora(email: String!): Customer
+  getCustomerWithClaimsAurora(customerId: ID!, limit: Int, nextToken: String): CustomerWithClaims
+}
+
